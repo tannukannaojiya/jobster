@@ -14,8 +14,8 @@ function App() {
         <SharedLayout/>
       </ProtectedRoute> }>
       <Route index element={<Stats/>}/>
-      <Route path='alljobs' element={<AllJobs/>}/>
-      <Route path='addjob' element={<AddJob/>}/>
+      <Route path='all-jobs' element={<AllJobs/>}/>
+      <Route path='add-job' element={<AddJob/>}/>
       <Route path='profile' element={<Profile/>}/>
       </Route>
       <Route path='landing' element={<Landing/>}/>
