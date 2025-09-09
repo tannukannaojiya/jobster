@@ -8,6 +8,7 @@ import { updateUser } from '../../features/user/userSlice';
 const Profile = () => {
   const { isLoading, user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  
   const [userData, setUserData] = useState({
     name: user?.name || '',
     email: user?.email || '',

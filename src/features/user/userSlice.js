@@ -28,7 +28,6 @@ export const updateUser = createAsyncThunk(
     }
 );
 
-
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -76,6 +75,9 @@ const userSlice = createSlice({
         })
 
         // updated value
+    .addCase(updateUser.pending, (state) =>{
+            state.isLoading = true;
+        })
      .addCase(updateUser.fulfilled, (state, { payload }) => {
         const { user } = payload;
         state.isLoading = false;
