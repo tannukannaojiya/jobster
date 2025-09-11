@@ -21,6 +21,15 @@ const AddJob = () => {
   const { user } = useSelector((store)=> store.user)
   const dispatch = useDispatch();
 
+
+// github addJob
+  useEffect(() => {
+  // eventually will check for isEditing
+  if (!isEditing) {
+    dispatch(handleChange({ name: 'jobLocation', value: user.location }));
+  }
+}, []);
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!position || !company || !jobLocation) {
