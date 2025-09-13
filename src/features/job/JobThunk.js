@@ -15,7 +15,7 @@ const authHeader = (thunkAPI)=>{
 
 export const createJobThunk = async(job, thunkAPI)=>{
     try{
-        debugger
+       
         const resp = await customFetch.post('/jobs', job, authHeader(thunkAPI));
         thunkAPI.dispatch(clearValues());
         return resp.data.msg;
