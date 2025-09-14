@@ -43,7 +43,9 @@ const jobSlice = createSlice({
             return {...initialState, 
                 jobLocation: getUserFromLocalStorage()?.location || ''};
         },
+        
         setEditJob : (state, { payload })=>{
+            debugger
         return {...state, isEditing: true, ...payload}
     },
     },
@@ -55,16 +57,17 @@ const jobSlice = createSlice({
         })
         .addCase(createJob.fulfilled, (state, { payload })=>{
             state.isLoading = false;
-            toast.success(payload.msg);
-
-            //toast.success('Job Created');
+            //toast.success(payload.msg);
+            toast.success('Job Created');
         })
         .addCase(createJob.rejected, (state, {payload})=>{
             state.isLoading = false;
             toast.error(payload);
+            
         })
         .addCase(deleteJob.fulfilled, (state, {payload})=>{
-             toast.success(payload);
+             //toast.success(payload);
+             toast.success('Job Deleted');
         })
         .addCase(deleteJob.rejected, (state, {payload})=>{
              toast.error(payload);

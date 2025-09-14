@@ -33,7 +33,6 @@ const AddJob = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
     if (!position || !company || !jobLocation) {
       toast.error('Please Fill Out All Fields');
       return;
@@ -52,8 +51,6 @@ const AddJob = () => {
     const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
-
- 
 
   return (
     <Wrapper>

@@ -14,17 +14,16 @@ const authHeader = (thunkAPI)=>{
 }
 
 export const createJobThunk = async(job, thunkAPI)=>{
-    try{
-       
+    try{   
         const resp = await customFetch.post('/jobs', job, authHeader(thunkAPI));
         thunkAPI.dispatch(clearValues());
         return resp.data.msg;
     }catch(error){
         //logout user
-        // if(error.response.status === 401){
-        //     thunkAPI.dispatch(logoutUser());
-        //     return thunkAPI.rejectWithValue('Unauthorized! Loggin Out...');
-        // }
+        if(error.response.status === 401){
+            thunkAPI.dispatch(logoutUser());
+            return thunkAPI.rejectWithValue('Unauthorized! Loggin Out...');
+        }
         return thunkAPI.rejectWithValue(error.response.data.msg);
     }
 };
