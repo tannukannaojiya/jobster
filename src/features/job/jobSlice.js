@@ -11,7 +11,7 @@ const initialState ={
     position: '',
     company:'',
     jobLocation:'',
-    jobTypeOptions:['interview', 'part-time', 'remote', 'internship'],
+    jobTypeOptions:['full-time', 'part-time', 'remote', 'internship'],
     jobType : 'full-time',
     statusOptions: ['interview', 'declined', 'pending'],
     status: 'pending',
@@ -55,9 +55,8 @@ const jobSlice = createSlice({
         .addCase(createJob.pending,  (state)=>{
             state.isLoading = true;
         })
-        .addCase(createJob.fulfilled, (state, { payload })=>{
+        .addCase(createJob.fulfilled, (state)=>{
             state.isLoading = false;
-            //toast.success(payload.msg);
             toast.success('Job Created');
         })
         .addCase(createJob.rejected, (state, {payload})=>{

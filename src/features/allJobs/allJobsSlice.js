@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from 'react-toastify';
 import customFetch from "../../utils/axios";
+// import { handleChange } from "../job/jobSlice";
+import { FcClearFilters } from "react-icons/fc";
+import { showStatsThunk, getAllJobsThunk } from './allJobsThunk';
+
 
 const initialFiltersState = {
     search:'',
@@ -23,29 +27,12 @@ const initialState = {
 
 export const getAllJobs = createAsyncThunk(
     'allJobs/getJobs',
-    async(_, thunkAPI)=>{
-        let url = `/jobs`;
-        try{
-            const resp = await customFetch.get(url);
-            console.log(resp.data);
-            return resp.data;
-        }catch(error){
-            return thunkAPI.rejectWithValue(error.response.data.msg);
-        }
-    }
+    getAllJobsThunk
 );
 
 export const showStats = createAsyncThunk(
     'allJobs/showStats',
-    async (_, thunkAPI)=>{
-        try{
-            const resp = await customFetch.get('/jobs/stats');
-            console.log(resp.data);
-            return resp.data;
-        } catch(error){
-            return thunkAPI.rejectWithValue(error.response.data.msg);
-        }
-    }
+    showStatsThunk
 );
 
 const allJobsSlice = createSlice({
@@ -58,6 +45,20 @@ const allJobsSlice = createSlice({
         hideLoading:(state)=>{
             state.isLoading = false;
         },
+        handleChange:(state, {payload:{ name, value}})=>{
+            state.page = 1;
+            state[name] = value;
+        },
+        clearFilters:(state)=>{
+            return {...state, ...initialFiltersState};
+
+        },
+        changePage: (state, { payload }) => {
+            state.page = payload;
+        },
+        clearAllJobsState: ()=>{
+            initialState
+        },
     },
     extraReducers:(builder) =>{
         builder
@@ -67,6 +68,8 @@ const allJobsSlice = createSlice({
         .addCase(getAllJobs.fulfilled, (state, {payload})=>{
             state.isLoading = false;
             state.jobs = payload.jobs;
+            state.numOfPages = payload.numOfPages;
+            state.totalJobs = payload.totalJobs;
         })
        .addCase(getAllJobs.rejected, (state, {payload})=>{
             state.isLoading = false;
@@ -88,5 +91,5 @@ const allJobsSlice = createSlice({
     }
 });
 
-export const { showLoading, hideLoading } = allJobsSlice.actions;
+export const { showLoading, hideLoading, handleChange, clearFilters, changePage, clearAllJobsState } = allJobsSlice.actions;
 export default allJobsSlice.reducer;
