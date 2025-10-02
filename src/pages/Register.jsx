@@ -93,8 +93,6 @@ if(user){
         >
         {isLoading ? 'loading...' : 'demo'}
         </button>
-
-        
         <p>
           {values.isMember ? 'Not a member yet ? ':'Already a member ? '}
           <button type="button" onClick={toggleMember} className="member-btn">
